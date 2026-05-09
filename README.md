@@ -6,7 +6,7 @@ A production-ready, AI-powered educational SaaS platform designed for students, 
 
 ## 🌐 Deployed Link
 
-https://your-deployed-link.vercel.app
+
 
 ---
 
