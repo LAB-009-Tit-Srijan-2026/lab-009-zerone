@@ -334,6 +334,11 @@ This platform demonstrates:
 
 ## 👥 Team Members
 
+- Anuj Sharma
+- Tanushka Tomar
+- Humera Khan
+- yuvraj sikarwar
+
 ### Real-time Q&A Video Chat Team
 
 - Frontend Developers
