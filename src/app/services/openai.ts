@@ -80,6 +80,55 @@ function formatSecondsAsTimestamp(seconds: number) {
   return `${mins}:${secs.toString().padStart(2, '0')}`;
 }
 
+function normalizeText(text: string) {
+  return text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
+}
+
+function getKeywordsFromText(text: string) {
+  const stopWords = new Set(['the', 'is', 'a', 'an', 'and', 'or', 'of', 'to', 'in', 'for', 'with', 'that', 'this', 'these', 'those', 'how', 'what', 'why', 'does', 'do', 'be', 'are', 'on', 'at', 'as', 'by', 'from']);
+  return normalizeText(text)
+    .split(/\s+/)
+    .filter(word => word.length > 2 && !stopWords.has(word));
+}
+
+function findRelevantTranscriptLines(question: string, transcript: { time: number; text: string }[], maxLines: number = 4) {
+  const keywords = getKeywordsFromText(question);
+  if (keywords.length === 0 || transcript.length === 0) {
+    return [];
+  }
+
+  const scored = transcript.map(line => {
+    const normalizedLine = normalizeText(line.text);
+    const score = keywords.reduce((count, keyword) => count + (normalizedLine.includes(keyword) ? 1 : 0), 0);
+    return { line, score };
+  });
+
+  return scored
+    .filter(item => item.score > 0)
+    .sort((a, b) => b.score - a.score || a.line.time - b.line.time)
+    .slice(0, maxLines)
+    .map(item => item.line);
+}
+
+function getTranscriptBasedExplanation(questionFocus: string, videoContext: VideoContext) {
+  const focus = questionFocus || videoContext.keyTopics?.[0] || videoContext.videoTitle;
+  const relevantLines = findRelevantTranscriptLines(focus, videoContext.transcript, 4);
+
+  if (relevantLines.length === 0) {
+    return '';
+  }
+
+  const segments = relevantLines
+    .map(line => `• [${formatSecondsAsTimestamp(line.time)}] ${line.text}`)
+    .join('\n');
+
+  return `Based on the video transcript for "${videoContext.videoTitle}", here is how the video explains ${focus}:
+
+${segments}
+
+In summary, the video emphasizes these points and connects them to the lesson's broader concepts.`;
+}
+
 // Enhanced local model for intent classification with question analysis
 function classifyIntent(message: string): string {
   const lowerMessage = message.toLowerCase();
@@ -248,6 +297,11 @@ function generateResponse(intent: string, topics: string[], context: Conversatio
 
 // Generate explanation responses based on specific questions
 function generateExplanationResponse(questionFocus: string, topics: string[], videoContext: VideoContext, userLevel: string): string {
+  const transcriptExplanation = getTranscriptBasedExplanation(questionFocus, videoContext);
+  if (transcriptExplanation) {
+    return transcriptExplanation;
+  }
+
   if (topics.length > 0) {
     const topic = topics[0] as keyof typeof KNOWLEDGE_BASE;
     const knowledge = KNOWLEDGE_BASE[topic];
@@ -262,14 +316,14 @@ function generateExplanationResponse(questionFocus: string, topics: string[], vi
       }
 
       response += `**Examples:** ${knowledge.examples.join(', ')}\n\n`;
-      response += `This concept is covered in "${videoContext.videoTitle}" around ${videoContext.currentTimestamp}.`;
+      response += `The video "${videoContext.videoTitle}" discusses this concept in context and provides practical examples.`;
 
       return response;
     }
   }
 
   // Fallback explanation based on question focus
-  return `Let me explain "${questionFocus}" based on the video content:\n\nFrom "${videoContext.videoTitle}", this concept is fundamental to understanding ${videoContext.keyTopics?.join(', ') || 'the main topics'}. \n\n**Key Points:**\n• It's a core concept in the lesson\n• The video explains it in detail at ${videoContext.currentTimestamp}\n• It's connected to other topics you're learning\n\nWould you like me to elaborate on any specific aspect or provide examples?`;
+  return `Let me explain "${questionFocus}" based on the video content:\n\nFrom "${videoContext.videoTitle}", this concept is fundamental to understanding ${videoContext.keyTopics?.join(', ') || 'the main topics'}. \n\n**Key Points:**\n• It's a core concept in the lesson\n• The video explains it in detail using visual examples\n• It's connected to other topics you're learning\n\nWould you like me to elaborate on any specific aspect or provide examples?`;
 }
 
 // Generate comparison responses
@@ -300,8 +354,12 @@ function generateImportanceResponse(questionFocus: string, topics: string[], vid
 function generateSummaryResponse(videoContext: VideoContext): string {
   const topics = videoContext.keyTopics || ['neural networks', 'machine learning'];
   const description = videoContext.lessonDescription || 'This lesson covers fundamental concepts in AI and machine learning.';
+  const transcriptHighlights = videoContext.transcript
+    .slice(0, 5)
+    .map(line => `• [${formatSecondsAsTimestamp(line.time)}] ${line.text}`)
+    .join('\n');
 
-  return `**Summary of "${videoContext.videoTitle}"**\n\n${description}\n\n**Current Focus (at ${videoContext.currentTimestamp}):**\n${videoContext.recentTranscript || 'Core concepts and practical applications'}\n\n**Key Topics Covered:**\n${topics.map(topic => `• ${topic}`).join('\n')}\n\n**Learning Outcomes:**\n• Understand the fundamental principles\n• Apply concepts to real problems\n• Connect theory with practice\n\n${videoContext.lessonDescription ? `**Lesson Goal:** ${videoContext.lessonDescription}` : ''}`;
+  return `**Summary of "${videoContext.videoTitle}"**\n\n${description}\n\n**Key Topics Covered:**\n${topics.map(topic => `• ${topic}`).join('\n')}\n\n**Transcript Highlights:**\n${transcriptHighlights}\n\n**Learning Outcomes:**\n• Understand the core principles explained in the lesson\n• See how the video develops each concept step by step\n• Connect the theory to real-world examples and applications\n\n${videoContext.lessonDescription ? `**Lesson Goal:** ${videoContext.lessonDescription}` : ''}`;
 }
 
 // Generate quiz responses
