@@ -4,6 +4,7 @@
 
 :root {
   --font-size: 16px;
+<<<<<<< HEAD
   --background: #070B14;
   --foreground: #FFFFFF;
   --card: #0D1322;
@@ -101,6 +102,82 @@
   --sidebar-accent-foreground: #FFFFFF;
   --sidebar-border: rgba(255, 255, 255, 0.06);
   --sidebar-ring: #7C5CFF;
+=======
+  --background: #ffffff;
+  --foreground: oklch(0.145 0 0);
+  --card: #ffffff;
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: #030213;
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.95 0.0058 264.53);
+  --secondary-foreground: #030213;
+  --muted: #ececf0;
+  --muted-foreground: #717182;
+  --accent: #e9ebef;
+  --accent-foreground: #030213;
+  --destructive: #d4183d;
+  --destructive-foreground: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: transparent;
+  --input-background: #f3f3f5;
+  --switch-background: #cbced4;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.646 0.222 41.116);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: #030213;
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+  --background: #0a0b14;
+  --foreground: #ffffff;
+  --card: #12131f;
+  --card-foreground: #ffffff;
+  --popover: #12131f;
+  --popover-foreground: #ffffff;
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --secondary: #1f2937;
+  --secondary-foreground: #ffffff;
+  --muted: #374151;
+  --muted-foreground: #9ca3af;
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #1f2937;
+  --input: #1f2937;
+  --ring: #8b5cf6;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #8b5cf6;
+  --chart-2: #06b6d4;
+  --chart-3: #10b981;
+  --chart-4: #f59e0b;
+  --chart-5: #ef4444;
+  --sidebar: #12131f;
+  --sidebar-foreground: #ffffff;
+  --sidebar-primary: #8b5cf6;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1f2937;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #1f2937;
+  --sidebar-ring: #8b5cf6;
+>>>>>>> dd389dfef8810a6390c2959c0d88349de8a7124a
 }
 
 @theme inline {
@@ -147,17 +224,23 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+<<<<<<< HEAD
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+=======
+>>>>>>> dd389dfef8810a6390c2959c0d88349de8a7124a
   }
 
   body {
     @apply bg-background text-foreground;
+<<<<<<< HEAD
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+=======
+>>>>>>> dd389dfef8810a6390c2959c0d88349de8a7124a
   }
 
   /**
@@ -171,23 +254,38 @@
 
   h1 {
     font-size: var(--text-2xl);
+<<<<<<< HEAD
     font-weight: 700;
     line-height: 1.2;
     color: var(--color-text-primary);
+=======
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+>>>>>>> dd389dfef8810a6390c2959c0d88349de8a7124a
   }
 
   h2 {
     font-size: var(--text-xl);
+<<<<<<< HEAD
     font-weight: 700;
     line-height: 1.2;
     color: var(--color-text-primary);
+=======
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+>>>>>>> dd389dfef8810a6390c2959c0d88349de8a7124a
   }
 
   h3 {
     font-size: var(--text-lg);
+<<<<<<< HEAD
     font-weight: 700;
     line-height: 1.2;
     color: var(--color-text-primary);
+=======
+    font-weight: var(--font-weight-medium);
+    line-height: 1.5;
+>>>>>>> dd389dfef8810a6390c2959c0d88349de8a7124a
   }
 
   h4 {
@@ -196,10 +294,13 @@
     line-height: 1.5;
   }
 
+<<<<<<< HEAD
   p {
     line-height: 1.6;
   }
 
+=======
+>>>>>>> dd389dfef8810a6390c2959c0d88349de8a7124a
   label {
     font-size: var(--text-base);
     font-weight: var(--font-weight-medium);
@@ -217,6 +318,7 @@
     font-weight: var(--font-weight-normal);
     line-height: 1.5;
   }
+<<<<<<< HEAD
 
   /* Glassmorphism utilities */
   .glass {
@@ -257,4 +359,6 @@
   .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
   }
+=======
+>>>>>>> dd389dfef8810a6390c2959c0d88349de8a7124a
 }
