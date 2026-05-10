@@ -45,7 +45,11 @@ function CommandDialog({
         <DialogDescription>{description}</DialogDescription>
       </DialogHeader>
       <DialogContent className="overflow-hidden p-0">
+<<<<<<< HEAD
         <Command className="[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 [&_[cmdk-input]]:h-12 [&_[cmdk-item]]:px-2 [&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+=======
+        <Command className="**:[&_[cmdk-group-heading]]:text-muted-foreground **:data-[slot=command-input-wrapper]:h-12 **:[&_[cmdk-group-heading]]:px-2 **:[&_[cmdk-group-heading]]:font-medium **:[&_[cmdk-group]]:px-2 [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 [&_[cmdk-input-wrapper]_svg]:h-5 [&_[cmdk-input-wrapper]_svg]:w-5 **:[&_[cmdk-input]]:h-12 **:[&_[cmdk-item]]:px-2 **:[&_[cmdk-item]]:py-3 [&_[cmdk-item]_svg]:h-5 [&_[cmdk-item]_svg]:w-5">
+>>>>>>> dd389dfef8810a6390c2959c0d88349de8a7124a
           {children}
         </Command>
       </DialogContent>
@@ -111,7 +115,11 @@ function CommandGroup({
     <CommandPrimitive.Group
       data-slot="command-group"
       className={cn(
+<<<<<<< HEAD
         "text-foreground [&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium",
+=======
+        "text-foreground **:[&_[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[&_[cmdk-group-heading]]:px-2 **:[&_[cmdk-group-heading]]:py-1.5 **:[&_[cmdk-group-heading]]:text-xs **:[&_[cmdk-group-heading]]:font-medium",
+>>>>>>> dd389dfef8810a6390c2959c0d88349de8a7124a
         className,
       )}
       {...props}
